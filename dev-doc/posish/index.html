@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="`posish` provides safe wrappers to `libc` functions. The current focus is on the functionality needed by `cap-std` and `system-interface` that isn’t provided by `std` or `getrandom`."><meta name="keywords" content="rust, rustlang, rust-lang, posish"><title>posish - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../posish/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../posish/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate posish</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.6.3</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li></ul></div></section><div id="sidebar-vars" data-name="posish" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../posish/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">posish</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/posish/lib.rs.html#1-122">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><code>posish</code> provides safe wrappers to <code>libc</code> functions. The current focus is
+on the functionality needed by <a href="https://crates.io/crates/cap-std"><code>cap-std</code></a> and <a href="https://crates.io/crates/system-interface"><code>system-interface</code></a> that
+isn’t provided by <a href="https://doc.rust-lang.org/std/"><code>std</code></a> or <a href="https://crates.io/crates/getrandom"><code>getrandom</code></a>.</p>
+<p>The wrappers perform the following tasks:</p>
+<ul>
+<li>Error values are translated to <code>Result</code>s.</li>
+<li>Out-parameters are translated to return values.</li>
+<li>Path arguments can by any kind of string type.</li>
+<li>File descriptors are passed in through arguments implementing
+<a href="https://docs.rs/unsafe-io/latest/unsafe_io/trait.AsUnsafeHandle.html"><code>AsUnsafeHandle</code></a> instead of as bare integers and returned as
+<a href="https://doc.rust-lang.org/std/fs/struct.File.html"><code>std::fs::File</code></a>s.</li>
+<li>Constants use <code>enum</code>s and <a href="https://crates.io/crates/bitflags"><code>bitflags</code></a> types.</li>
+<li>Multiplexed functions (eg. <code>fcntl</code>, <code>ioctl</code>, etc.) are de-multiplexed.</li>
+<li>Variadic functions (eg. <code>openat</code>, etc.) are presented as non-variadic.</li>
+<li>Functions and types which need <code>64</code> suffixes to enable large-file
+support are used automatically.</li>
+<li>Behaviors that depend on the sizes of C types like <code>long</code> are hidden.</li>
+<li>File offsets and sizes are presented as <code>i64</code> and <code>u64</code> rather than
+<code>off_t</code>.</li>
+<li>In some places, more human-friendly and less historical-accident names
+are used.</li>
+</ul>
+<p>Things they don’t do include:</p>
+<ul>
+<li>Emulating functions that aren’t natively supported on a platform.</li>
+<li>Detecting whether functions are supported at runtime.</li>
+<li>Hiding significant differences between platforms.</li>
+<li>Hiding ambient authorities.</li>
+<li>Imposing sandboxing features such as filesystem path or network address
+sandboxing.</li>
+</ul>
+<p>See <a href="https://crates.io/crates/cap-std"><code>cap-std</code></a> and <a href="https://crates.io/crates/system-interface"><code>system-interface</code></a> for libraries which do hide
+ambient authorities and perform sandboxing.</p>
+<h2 id="safety"><a href="#safety">Safety</a></h2>
+<p>This library follows <a href="https://doc.rust-lang.org/std/"><code>std</code></a> in considering dynamic integer values that
+have no meaning outside of OS APIs to be similar to raw pointers, from a
+safety perspective. For example,
+<a href="https://docs.rs/unsafe-io/latest/unsafe_io/trait.FromUnsafeHandle.html#tymethod.from_unsafe_handle"><code>unsafe_io::FromUnsafeHandle::from_unsafe_handle</code></a> is unsafe since it takes a
+raw file descriptor. In this library, raw file descriptors and raw
+directory seek locations are considered to be similar to raw pointers in
+terms of safety.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="fs/index.html" title="posish::fs mod">fs</a></div><div class="item-right docblock-short"><p>Filesystem operations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="io/index.html" title="posish::io mod">io</a></div><div class="item-right docblock-short"><p>I/O operations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="net/index.html" title="posish::net mod">net</a></div><div class="item-right docblock-short"><p>Network-related operations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="path/index.html" title="posish::path mod">path</a></div><div class="item-right docblock-short"><p>Filesystem path operations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="process/index.html" title="posish::process mod">process</a></div><div class="item-right docblock-short"><p>Process-associated operations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="time/index.html" title="posish::time mod">time</a></div><div class="item-right docblock-short"><p>Time-related operations.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="posish" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</body></html>

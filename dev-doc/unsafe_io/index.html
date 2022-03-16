@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Non-owning unsafe I/O"><meta name="keywords" content="rust, rustlang, rust-lang, unsafe_io"><title>unsafe_io - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../unsafe_io/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../unsafe_io/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"><a href="#">Crate unsafe_io</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.6.12</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li><li><a href="#types">Type Definitions</a></li></ul></div></section><div id="sidebar-vars" data-name="unsafe_io" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../unsafe_io/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">unsafe_io</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/unsafe_io/lib.rs.html#1-267">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Non-owning unsafe I/O</p>
+<p>The main types are:</p>
+<div><table><thead><tr><th>Resource</th><th>Posix-ish type</th><th>Windows type</th><th></th><th>Platform-independent types</th></tr></thead><tbody>
+<tr><td>File/Pipe</td><td><a href="https://doc.rust-lang.org/std/os/unix/io/type.RawFd.html"><code>RawFd</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/type.RawHandle.html"><code>RawHandle</code></a></td><td></td><td><a href="struct.UnsafeHandle.html" title="UnsafeHandle"><code>UnsafeHandle</code></a> or <a href="struct.UnsafeFile.html" title="UnsafeFile"><code>UnsafeFile</code></a></td></tr>
+<tr><td>Socket</td><td><a href="https://doc.rust-lang.org/std/os/unix/io/type.RawFd.html"><code>RawFd</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/type.RawSocket.html"><code>RawSocket</code></a></td><td></td><td><a href="struct.UnsafeHandle.html" title="UnsafeHandle"><code>UnsafeHandle</code></a> or <a href="struct.UnsafeSocket.html" title="UnsafeSocket"><code>UnsafeSocket</code></a></td></tr>
+<tr><td>Any</td><td><a href="https://doc.rust-lang.org/std/os/unix/io/type.RawFd.html"><code>RawFd</code></a></td><td><a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/struct.RawHandleOrSocket.html"><code>RawHandleOrSocket</code></a></td><td></td><td><a href="struct.UnsafeHandle.html" title="UnsafeHandle"><code>UnsafeHandle</code></a></td></tr>
+</tbody></table>
+</div>
+<p>and the main traits are:</p>
+<div><table><thead><tr><th>Type</th><th><code>As</code> trait</th><th><code>Into</code> trait</th><th><code>From</code> trait</th></tr></thead><tbody>
+<tr><td><a href="https://doc.rust-lang.org/std/os/unix/io/type.RawFd.html"><code>RawFd</code></a></td><td><a href="https://doc.rust-lang.org/std/os/unix/io/trait.AsRawFd.html"><code>AsRawFd</code></a></td><td><a href="https://doc.rust-lang.org/std/os/unix/io/trait.IntoRawFd.html"><code>IntoRawFd</code></a></td><td><a href="https://doc.rust-lang.org/std/os/unix/io/trait.FromRawFd.html"><code>FromRawFd</code></a></td></tr>
+<tr><td><a href="https://doc.rust-lang.org/std/os/windows/io/type.RawHandle.html"><code>RawHandle</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.AsRawHandle.html"><code>AsRawHandle</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.IntoRawHandle.html"><code>IntoRawHandle</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.FromRawHandle.html"><code>FromRawHandle</code></a></td></tr>
+<tr><td><a href="https://doc.rust-lang.org/std/os/windows/io/type.RawSocket.html"><code>RawSocket</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.AsRawHandle.html"><code>AsRawSocket</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.IntoRawHandle.html"><code>IntoRawSocket</code></a></td><td><a href="https://doc.rust-lang.org/std/os/windows/io/trait.FromRawHandle.html"><code>FromRawSocket</code></a></td></tr>
+<tr><td><a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/struct.RawHandleOrSocket.html"><code>RawHandleOrSocket</code></a></td><td><a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.AsRawHandleOrSocket.html"><code>AsRawHandleOrSocket</code></a></td><td><a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.IntoRawHandleOrSocket.html"><code>IntoRawHandleOrSocket</code></a></td><td><a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.FromRawHandleOrSocket.html"><code>FromRawHandleOrSocket</code></a></td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td><a href="struct.UnsafeFile.html" title="UnsafeFile"><code>UnsafeFile</code></a></td><td><a href="trait.AsUnsafeFile.html" title="AsUnsafeFile"><code>AsUnsafeFile</code></a></td><td><a href="trait.IntoUnsafeFile.html" title="IntoUnsafeFile"><code>IntoUnsafeFile</code></a></td><td><a href="trait.FromUnsafeFile.html" title="FromUnsafeFile"><code>FromUnsafeFile</code></a></td></tr>
+<tr><td><a href="struct.UnsafeSocket.html" title="UnsafeSocket"><code>UnsafeSocket</code></a></td><td><a href="trait.AsUnsafeSocket.html" title="AsUnsafeSocket"><code>AsUnsafeSocket</code></a></td><td><a href="trait.IntoUnsafeSocket.html" title="IntoUnsafeSocket"><code>IntoUnsafeSocket</code></a></td><td><a href="trait.FromUnsafeSocket.html" title="FromUnsafeSocket"><code>FromUnsafeSocket</code></a></td></tr>
+<tr><td><a href="struct.UnsafeHandle.html" title="UnsafeHandle"><code>UnsafeHandle</code></a></td><td><a href="trait.AsUnsafeHandle.html" title="AsUnsafeHandle"><code>AsUnsafeHandle</code></a></td><td><a href="trait.IntoUnsafeHandle.html" title="IntoUnsafeHandle"><code>IntoUnsafeHandle</code></a></td><td><a href="trait.FromUnsafeHandle.html" title="FromUnsafeHandle"><code>FromUnsafeHandle</code></a></td></tr>
+</tbody></table>
+</div>
+<p>A brief explanation of the naming convention:</p>
+<p>“Raw” is for platform-specific types and traits, such as <code>std</code>’s <a href="https://doc.rust-lang.org/std/os/unix/io/type.RawFd.html"><code>RawFd</code></a>,
+<a href="https://doc.rust-lang.org/std/os/unix/io/trait.AsRawFd.html"><code>AsRawFd</code></a>, <a href="https://doc.rust-lang.org/std/os/windows/io/type.RawHandle.html"><code>RawHandle</code></a>, <a href="https://doc.rust-lang.org/std/os/windows/io/trait.AsRawHandle.html"><code>AsRawHandle</code></a>, and similar, as well as
+<code>unsafe-io</code>’s <a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/struct.RawHandleOrSocket.html"><code>RawHandleOrSocket</code></a>, <a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.AsRawHandleOrSocket.html"><code>AsRawHandleOrSocket</code></a>, and similar.
+“Handle” in this context means a Windows <a href="https://doc.rust-lang.org/std/os/windows/raw/type.HANDLE.html"><code>HANDLE</code></a>.</p>
+<p>“Unsafe” is for minimal platform-independent abstractions on top of the
+platform-specific types, such as <a href="struct.UnsafeHandle.html" title="UnsafeHandle"><code>UnsafeHandle</code></a> (abstracts over <code>RawFd</code>
+and <code>RawHandleOrSocket</code>), <a href="struct.UnsafeFile.html" title="UnsafeFile"><code>UnsafeFile</code></a> (abstracts over <code>RawFd</code> and
+<code>RawHandle</code>), and <a href="struct.UnsafeSocket.html" title="UnsafeSocket"><code>UnsafeSocket</code></a> (abstracts over <code>RawFd</code> and
+<code>RawSocket</code>). “Handle” in this context means any kind of I/O handle.</p>
+<h2 id="ownership-guarantees"><a href="#ownership-guarantees">Ownership Guarantees</a></h2>
+<p><em>Update</em>: The approach to ownership in this crate is expected to be
+superceded by the <a href="https://crates.io/crates/io-lifetimes">io-lifetimes</a> crate, which provides a much simpler and
+safer API.</p>
+<p>The <code>AsUnsafe*</code> and <code>IntoUnsafe*</code> trait functions return non-owning handles,
+however these traits do require types that implement them to guarantee that
+they own the handles. This differs from their <code>AsRaw*</code> and <code>IntoRaw*</code>
+counterparts, which do not require such a guarantee. This crate defines an
+<a href="trait.OwnsRaw.html" title="OwnsRaw"><code>OwnsRaw</code></a> trait which is unsafe to implement and which allows types to
+declare that they own the handles they hold, allowing them to opt into the
+blanket <code>AsUnsafe*</code> and <code>IntoUnsafe*</code> implementations. See
+<a href="https://github.com/rust-lang/rust/issues/76969">rust-lang/rust#76969</a> for further background.</p>
+<h2 id="additional-utilities"><a href="#additional-utilities">Additional Utilities</a></h2>
+<p>This crates also defines several additional utilities:</p>
+<ul>
+<li>
+<p><code>UnsafeHandle</code> has functions <a href="struct.UnsafeHandle.html#method.as_readable"><code>as_readable</code></a> and <a href="struct.UnsafeHandle.html#method.as_writeable"><code>as_writeable</code></a> which
+return similar non-owning types <a href="struct.UnsafeReadable.html" title="UnsafeReadable"><code>UnsafeReadable</code></a> and
+<a href="struct.UnsafeWriteable.html" title="UnsafeWriteable"><code>UnsafeWriteable</code></a>, respectively, which implement <a href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html"><code>Read</code></a> and
+<a href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html"><code>Write</code></a>.</p>
+</li>
+<li>
+<p><code>AsUnsafeFile</code> has functions <a href="trait.AsUnsafeFile.html#method.as_file_view"><code>as_file_view</code></a>, <code>as_pipe_reader_view</code>,
+and <code>as_pipe_writer_view</code> (enable <a href="https://docs.rs/crate/unsafe-io/latest/features#os_pipe">the <code>os_pipe</code> feature</a>), and
+<code>AsUnsafeSocket</code> has functions <a href="trait.AsUnsafeSocket.html#method.as_tcp_stream_view"><code>as_tcp_stream_view</code></a>,
+<a href="trait.AsUnsafeSocket.html#method.as_tcp_listener_view"><code>as_tcp_listener_view</code></a>, <a href="trait.AsUnsafeSocket.html#method.as_udp_socket_view"><code>as_udp_socket_view</code></a>, and
+<a href="https://docs.rs/unsafe-io/latest/unsafe_io/trait.AsUnsafeSocket.html#method.as_unix_stream_view"><code>as_unix_stream_view</code></a> (on <a href="https://doc.rust-lang.org/std/os/unix/net/struct.UnixStream.html"><code>unix</code></a> platforms), for obtaining a
+temporary <a href="struct.View.html">view</a> of a handle as various higher-level types.</p>
+</li>
+<li>
+<p><code>AsUnsafeHandle</code> has an <a href="trait.AsUnsafeHandle.html#method.eq_handle"><code>eq_handle</code></a> function, <code>AsUnsafeFile</code> has an
+<a href="trait.AsUnsafeFile.html#method.eq_file"><code>eq_file</code></a> function, and <code>AsUnsafeSocket</code> has an <a href="trait.AsUnsafeSocket.html#method.eq_socket"><code>eq_socket</code></a>
+function, for comparing whether two types hold the same handle, and are
+safe to call.</p>
+</li>
+<li>
+<p><code>FromUnsafeFile</code> has a <a href="trait.FromUnsafeFile.html#method.from_filelike"><code>from_filelike</code></a> function, and
+<code>FromUnsafeSocket</code> has a <a href="trait.FromUnsafeSocket.html#method.from_socketlike"><code>from_socketlike</code></a> function, for constructing
+a type from any type which implements <a href="trait.IntoUnsafeFile.html" title="IntoUnsafeFile"><code>IntoUnsafeFile</code></a>, or
+<a href="trait.IntoUnsafeSocket.html" title="IntoUnsafeSocket"><code>IntoUnsafeSocket</code></a>, respectively. Unlike in the corresponding “Raw”
+traits, these functions are safe to call.</p>
+</li>
+<li>
+<p><a href="trait.AsUnsafeReadWriteHandle.html" title="AsUnsafeReadWriteHandle"><code>AsUnsafeReadWriteHandle</code></a>, <a href="https://docs.rs/unsafe-io/latest/unsafe_io/trait.AsRawReadWriteFd.html"><code>AsRawReadWriteFd</code></a>, and
+<a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.AsRawReadWriteHandleOrSocket.html"><code>AsRawReadWriteHandleOrSocket</code></a> are traits for working with types that
+implement both <a href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html"><code>Read</code></a> and <a href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html"><code>Write</code></a> and may contain either one handle
+(such as a socket) or two (such as stdin and stdout, or a pair of
+pipes).</p>
+</li>
+</ul>
+<h2 id="examples"><a href="#examples">Examples</a></h2>
+<p>To use the <a href="trait.AsUnsafeHandle.html" title="AsUnsafeHandle"><code>AsUnsafeHandle</code></a> trait:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">unsafe_io::AsUnsafeHandle</span>;
+
+<span class="comment">// Open a normal file.</span>
+<span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">std::fs::File::open</span>(<span class="string">&quot;Cargo.toml&quot;</span>).<span class="ident">unwrap</span>();
+
+<span class="comment">// Extract the handle.</span>
+<span class="kw">let</span> <span class="ident">unsafe_handle</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">as_unsafe_handle</span>();</code></pre></div>
+<hr />
+<p>Many types implement <code>AsUnsafeHandle</code>, however very few types implement
+<code>FromUnsafeHandle</code>. Most types implement only <code>FromUnsafeFile</code> or
+<code>FromUnsafeSocket</code> instead. For an example that extracts a handle and
+constructs a new file, we use the <a href="trait.IntoUnsafeFile.html" title="IntoUnsafeFile"><code>IntoUnsafeFile</code></a> and <a href="trait.AsUnsafeFile.html" title="AsUnsafeFile"><code>AsUnsafeFile</code></a>
+traits:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">unsafe_io</span>::{<span class="ident">FromUnsafeFile</span>, <span class="ident">IntoUnsafeFile</span>};
+
+<span class="comment">// Open a normal file.</span>
+<span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="ident">std::fs::File::open</span>(<span class="string">&quot;Cargo.toml&quot;</span>).<span class="ident">unwrap</span>();
+
+<span class="comment">// Consume the file, returning the handle.</span>
+<span class="kw">let</span> <span class="ident">unsafe_file</span> <span class="op">=</span> <span class="ident">file</span>.<span class="ident">into_unsafe_file</span>();
+
+<span class="comment">// Construct a new file with the handle.</span>
+<span class="kw">let</span> <span class="ident">file</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">std::fs::File::from_unsafe_file</span>(<span class="ident">unsafe_file</span>) };</code></pre></div>
+<hr />
+<p>To implement the <a href="trait.AsUnsafeHandle.html" title="AsUnsafeHandle"><code>AsUnsafeHandle</code></a> trait for a type, implement the
+<a href="https://doc.rust-lang.org/std/os/unix/io/trait.AsRawFd.html"><code>AsRawFd</code></a> trait for Posix-ish platforms and the <a href="https://docs.rs/unsafe-io/latest/x86_64-pc-windows-msvc/unsafe_io/trait.AsRawHandleOrSocket.html"><code>AsRawHandleOrSocket</code></a>
+trait for Windows platforms, and then implement <a href="trait.OwnsRaw.html" title="OwnsRaw"><code>OwnsRaw</code></a>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
+<span class="kw">use</span> <span class="ident">unsafe_io::os::posish</span>::{<span class="ident">AsRawFd</span>, <span class="ident">RawFd</span>};
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
+<span class="kw">use</span> <span class="ident">unsafe_io::os::windows</span>::{<span class="ident">AsRawHandleOrSocket</span>, <span class="ident">RawHandleOrSocket</span>};
+<span class="kw">use</span> <span class="ident">unsafe_io::OwnsRaw</span>;
+
+<span class="kw">struct</span> <span class="ident">MyType</span>(<span class="ident">std::fs::File</span>);
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">windows</span>))]</span>
+<span class="kw">impl</span> <span class="ident">AsRawFd</span> <span class="kw">for</span> <span class="ident">MyType</span> {
+    <span class="kw">fn</span> <span class="ident">as_raw_fd</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RawFd</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_raw_fd</span>()
+    }
+}
+
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">windows</span>)]</span>
+<span class="kw">impl</span> <span class="ident">AsRawHandleOrSocket</span> <span class="kw">for</span> <span class="ident">MyType</span> {
+    <span class="kw">fn</span> <span class="ident">as_raw_handle_or_socket</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">RawHandleOrSocket</span> {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_raw_handle_or_socket</span>()
+    }
+}
+
+<span class="comment">// Safety: `MyType` owns its handle.</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">OwnsRaw</span> <span class="kw">for</span> <span class="ident">MyType</span> {}</code></pre></div>
+<p>This requires <code>unsafe</code> because implementing <a href="trait.OwnsRaw.html" title="OwnsRaw"><code>OwnsRaw</code></a> asserts that the
+type owns its raw handle. See the <a href="https://crates.io/crates/char-device/">char-device</a> crate for a complete
+example.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="os/index.html" title="unsafe_io::os mod">os</a></div><div class="item-right docblock-short"><p>OS-specific functionality.</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ReadHalf.html" title="unsafe_io::ReadHalf struct">ReadHalf</a></div><div class="item-right docblock-short"><p>Adapt an <code>AsUnsafeReadWriteHandle</code> implementation to implement
+<code>AsUnsafeHandle</code> with the read handle.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnsafeFile.html" title="unsafe_io::UnsafeFile struct">UnsafeFile</a></div><div class="item-right docblock-short"><p>A non-owning unsafe I/O handle which on Windows is limited to handling what
+Windows considers to be <a href="https://doc.rust-lang.org/std/os/windows/io/type.RawHandle.html"><code>RawHandle</code></a>s—mainly files and pipes.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnsafeHandle.html" title="unsafe_io::UnsafeHandle struct">UnsafeHandle</a></div><div class="item-right docblock-short"><p>A non-owning unsafe I/O handle.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnsafeReadable.html" title="unsafe_io::UnsafeReadable struct">UnsafeReadable</a></div><div class="item-right docblock-short"><p>A non-owning unsafe I/O handle that implements <a href="https://doc.rust-lang.org/nightly/std/io/trait.Read.html" title="Read"><code>Read</code></a>. <code>Read</code> functions
+are considered safe, so this type requires <code>unsafe</code> to construct.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnsafeSocket.html" title="unsafe_io::UnsafeSocket struct">UnsafeSocket</a></div><div class="item-right docblock-short"><p>A non-owning unsafe I/O handle which on Windows is limited to handling what
+Windows considers to be <a href="https://doc.rust-lang.org/std/os/windows/io/type.RawSocket.html"><code>RawSocket</code></a>s—mainly TCP streams and listeners
+and UDP sockets.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UnsafeWriteable.html" title="unsafe_io::UnsafeWriteable struct">UnsafeWriteable</a></div><div class="item-right docblock-short"><p>A non-owning unsafe I/O handle that implements <a href="https://doc.rust-lang.org/nightly/std/io/trait.Write.html" title="Write"><code>Write</code></a>. <code>Write</code> functions
+considered are safe, so this type requires <code>unsafe</code> to construct.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.View.html" title="unsafe_io::View struct">View</a></div><div class="item-right docblock-short"><p>A non-owning view of a resource which dereferences to a <code>&amp;Target</code> or
+<code>&amp;mut Target</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.WriteHalf.html" title="unsafe_io::WriteHalf struct">WriteHalf</a></div><div class="item-right docblock-short"><p>Adapt an <code>AsUnsafeReadWriteHandle</code> implementation to implement
+<code>AsUnsafeHandle</code> with the write handle.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsGrip.html" title="unsafe_io::AsGrip trait">AsGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>AsFd</code> and <code>AsHandleOrSocket</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsReadWriteGrip.html" title="unsafe_io::AsReadWriteGrip trait">AsReadWriteGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>AsReadWriteFd</code> and
+<code>AsReadWriteHandleOrSocket</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsUnsafeFile.html" title="unsafe_io::AsUnsafeFile trait">AsUnsafeFile</a></div><div class="item-right docblock-short"><p>A trait for types which contain an unsafe file and can expose it.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsUnsafeHandle.html" title="unsafe_io::AsUnsafeHandle trait">AsUnsafeHandle</a></div><div class="item-right docblock-short"><p>A trait for types which contain an unsafe handle and can expose it.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsUnsafeReadWriteHandle.html" title="unsafe_io::AsUnsafeReadWriteHandle trait">AsUnsafeReadWriteHandle</a></div><div class="item-right docblock-short"><p>Like <a href="trait.AsUnsafeHandle.html" title="AsUnsafeHandle"><code>AsUnsafeHandle</code></a>, but for types which may have one or two handles,
+for reading and writing.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AsUnsafeSocket.html" title="unsafe_io::AsUnsafeSocket trait">AsUnsafeSocket</a></div><div class="item-right docblock-short"><p>A trait for types which contain an unsafe socket and can expose it.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.FromGrip.html" title="unsafe_io::FromGrip trait">FromGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>FromFd</code> and
+<code>FromHandleOrSocket</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.FromUnsafeFile.html" title="unsafe_io::FromUnsafeFile trait">FromUnsafeFile</a></div><div class="item-right docblock-short"><p>A trait for types which can be constructed from unsafe files.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.FromUnsafeHandle.html" title="unsafe_io::FromUnsafeHandle trait">FromUnsafeHandle</a></div><div class="item-right docblock-short"><p>A trait for types which can be constructed from an unsafe handle.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.FromUnsafeSocket.html" title="unsafe_io::FromUnsafeSocket trait">FromUnsafeSocket</a></div><div class="item-right docblock-short"><p>A trait for types which can be constructed from unsafe sockets.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.IntoGrip.html" title="unsafe_io::IntoGrip trait">IntoGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>IntoFd</code> and
+<code>IntoHandleOrSocket</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.IntoUnsafeFile.html" title="unsafe_io::IntoUnsafeFile trait">IntoUnsafeFile</a></div><div class="item-right docblock-short"><p>A trait for types which can be converted into unsafe files.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.IntoUnsafeHandle.html" title="unsafe_io::IntoUnsafeHandle trait">IntoUnsafeHandle</a></div><div class="item-right docblock-short"><p>A trait for types which can be converted into an unsafe handle.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.IntoUnsafeSocket.html" title="unsafe_io::IntoUnsafeSocket trait">IntoUnsafeSocket</a></div><div class="item-right docblock-short"><p>A trait for types which can be converted into unsafe sockets.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.OwnsRaw.html" title="unsafe_io::OwnsRaw trait">OwnsRaw</a></div><div class="item-right docblock-short"><p>Assert that a type owns its raw file descriptor or handle.</p>
+</div></div></div><h2 id="types" class="small-section-header"><a href="#types">Type Definitions</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="type" href="type.BorrowedGrip.html" title="unsafe_io::BorrowedGrip type">BorrowedGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>BorrowedFd</code> and <code>BorrowedHandleOrSocket</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="type" href="type.OwnedGrip.html" title="unsafe_io::OwnedGrip type">OwnedGrip</a></div><div class="item-right docblock-short"><p>Portability abstraction over <code>OwnedFd</code> and <code>OwnedHandleOrSocket</code>.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="unsafe_io" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0-nightly (285fa7ecd 2022-03-14)" ></div>
+</body></html>
